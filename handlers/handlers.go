@@ -15,7 +15,7 @@ type Handler struct {
 
 // Calculate handles the calculation endpoint.
 func (h *Handler) Calculate(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-    input, ok := r.Context().Value("input").(types.Input)
+    input, ok := types.ExtractInput(r)
     if !ok {
         http.Error(w, "Invalid request context", http.StatusBadRequest)
         return

@@ -3,18 +3,14 @@ package types
 import (
     //"context"
     "net/http"
-    "encoding/json"
+    //"encoding/json"
      "math/big"
 )
 
 // ExtractInput extracts the Input struct from the HTTP request.
 func ExtractInput(r *http.Request) (Input, bool) {
-    var input Input
-    err := json.NewDecoder(r.Body).Decode(&input)
-    if err != nil {
-        return Input{}, false
-    }
-    return input, true
+  input, ok := r.Context().Value("input").(Input)
+  return input, ok
 }
 
 // PrepareOutput prepares the output data from calculation results.
